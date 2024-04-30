@@ -1,21 +1,25 @@
+
 from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 # Start of my config: To increase and decrease volume
+from libqtile.widget import TextBox
+import subprocess
+
 class VolumeWidget(TextBox):
     def __init__(self):
         super().__init__(text="Vol")
         self.update_volume()
 
         # Add callbacks to the widget
-        self.add_callbacks({'Button1': self.on_left_click, 'Button3': self.on_right_click})
+        self.add_callbacks({'Button1': self.on_left_click, 'Button3': self.on_right_click, 'Button3-Double': self.on_double_right_click})
 
     def update_volume(self):
-        # Run your volume.sh script to get the volume percent
-        result = subprocess.run(["/home/chris/.config/scripts/volume.sh", "get"], capture_output=True, text=True)
-        self.text = "" + result.stdout.strip()
+        # Run your volume.sh script to get the volume level or mute state
+        result = subprocess.run(["/home/chris/.config/scripts/volume.sh"], capture_output=True, text=True)
+        self.text = result.stdout.strip()
 
     def on_left_click(self):
         subprocess.run(["/home/chris/.config/scripts/volume.sh", "up"])
@@ -24,6 +28,14 @@ class VolumeWidget(TextBox):
     def on_right_click(self):
         subprocess.run(["/home/chris/.config/scripts/volume.sh", "down"])
         self.update_volume()
+
+    def on_double_right_click(self):
+        subprocess.run(["/home/chris/.config/scripts/volume.sh", "mute"])
+        self.update_volume()
+
+# Create an instance of VolumeWidget
+volume_widget = VolumeWidget()
+
 # End of my config: To increase and decrease volume
 
 # Start of My Config: (Network Widget) A Script runs and displays a icon depending on if connected to wifi, ethernet or disconnected
