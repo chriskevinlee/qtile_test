@@ -3,6 +3,29 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+# Start of my config: To increase and decrease volume
+class VolumeWidget(TextBox):
+    def __init__(self):
+        super().__init__(text="Vol")
+        self.update_volume()
+
+        # Add callbacks to the widget
+        self.add_callbacks({'Button1': self.on_left_click, 'Button3': self.on_right_click})
+
+    def update_volume(self):
+        # Run your volume.sh script to get the volume percent
+        result = subprocess.run(["/home/chris/.config/scripts/volume.sh", "get"], capture_output=True, text=True)
+        self.text = "" + result.stdout.strip()
+
+    def on_left_click(self):
+        subprocess.run(["/home/chris/.config/scripts/volume.sh", "up"])
+        self.update_volume()
+
+    def on_right_click(self):
+        subprocess.run(["/home/chris/.config/scripts/volume.sh", "down"])
+        self.update_volume()
+# End of my config: To increase and decrease volume
+
 # Start of My Config: (Network Widget) A Script runs and displays a icon depending on if connected to wifi, ethernet or disconnected
 def get_nmcli_output():
     return subprocess.check_output(["/home/chris/.config/scripts/nmcli.sh"]).decode("utf-8").strip()
@@ -189,7 +212,7 @@ screens = [
             widget.Spacer(
                 length=10, 
                 ),
-            widget.PulseVolume(volume_down_command = "Button2"),
+            VolumeWidget(),
             widget.Spacer(
                 length=10, 
                 ),
