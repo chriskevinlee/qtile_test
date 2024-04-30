@@ -1,1 +1,9 @@
-
+packages needed:
+sudo pacman -S nerd-fonts
+sudo pacman -S mpv
+sudo pacman -S arandr
+sudo pacman -S nitrogen
+sudo pacman -S rofi
+sudo pacman -S xscreensaver
+sudo pacman -S
+sudo pacman -S
