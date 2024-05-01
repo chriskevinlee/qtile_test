@@ -14,7 +14,7 @@ sudo pacman -S alacritty
 sudo pacman -S pavucontrol
 sudo pacman -S pipewire-pulse
 
-# for yay (AUR) 
+# for yay (AUR) and sublime-text
 sudo pacman -S base-devel
 sudo pacman -S git
 
