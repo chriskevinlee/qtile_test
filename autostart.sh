@@ -1,5 +1,5 @@
 #!/bin/bash
 xrandr -s 1920x1080 &
 nitrogen --restore &
-#/home/chris/.config/polybar/launch.sh &
+mpv --no-video /home/chris/Downloads/computer-startup-music-97699.mp3
 xscreensaver -no-splash &
