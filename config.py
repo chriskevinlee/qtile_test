@@ -4,6 +4,8 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+
+
 # Start of my config: To increase and decrease volume
 from libqtile.widget import TextBox
 import subprocess
@@ -14,7 +16,7 @@ class VolumeWidget(TextBox):
         self.update_volume()
 
         # Add callbacks to the widget
-        self.add_callbacks({'Button1': self.on_left_click, 'Button3': self.on_right_click, 'Button3-Double': self.on_double_right_click})
+        self.add_callbacks({'Button1': self.on_left_click, 'Button3': self.on_right_click})
 
     def update_volume(self):
         # Run your volume.sh script to get the volume level or mute state
@@ -27,10 +29,6 @@ class VolumeWidget(TextBox):
 
     def on_right_click(self):
         subprocess.run(["/home/chris/.config/scripts/volume.sh", "down"])
-        self.update_volume()
-
-    def on_double_right_click(self):
-        subprocess.run(["/home/chris/.config/scripts/volume.sh", "mute"])
         self.update_volume()
 
 # Create an instance of VolumeWidget
