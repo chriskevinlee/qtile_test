@@ -9,6 +9,7 @@ sudo pacman -S feh
 sudo pacman -S qtile
 sudo pacman -S sddm
 sudo pacman -S alacritty
+sudo pacman -S python-psutil
 
 # get audio widget working
 sudo pacman -S pavucontrol
