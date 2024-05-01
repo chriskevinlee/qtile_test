@@ -14,6 +14,7 @@ sudo pacman -S pavucontrol
 sudo pacman -S pipewire-pulse
 
 # for yay (AUR) 
+sudo pacman -S base-devel
 sudo pacman -S git
 
 
