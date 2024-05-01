@@ -10,6 +10,7 @@ sudo pacman -S qtile
 sudo pacman -S sddm
 sudo pacman -S alacritty
 
+# get audio widget working
 sudo pacman -S pavucontrol
 sudo pacman -S pipewire-pulse
 
