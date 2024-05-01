@@ -10,6 +10,9 @@ sudo pacman -S qtile
 sudo pacman -S sddm
 sudo pacman -S alacritty
 
+sudo pacman -S pavucontrol
+sudo pacman -S pipewire-pulse
+
 
 feh_wallpaper.service needs to be stored at $HOME/.config/systemd/user
 systemctl --user daemon-reload
