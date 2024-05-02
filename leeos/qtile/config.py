@@ -1,10 +1,22 @@
-
 from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
-
+# Start of my config: Detect to see if a battery is available (BAT0) if it is then shows on qtile bar, if not hide the battery widget
+def battery_widget():
+    if os.path.exists("/sys/class/power_supply/BAT0"):
+        return widget.Battery(
+            battery="BAT0",
+            charge_char="󰂄 ",
+            discharge_char="  ",
+            format="{char} {percent:2.0%}",
+            full_char="",
+            update_interval=1,
+        )
+    else:
+        return None
+# End of my config: Detect to see if a battery is available (BAT0) if it is then shows on qtile bar, if not hide the battery widget
 
 # Start of my config: To increase and decrease volume
 from libqtile.widget import TextBox
@@ -133,7 +145,6 @@ for vt in range(1, 8):
             desc=f"Switch to VT{vt}",
         )
     )
-
 
 groups = [Group(i) for i in "123456789"]
 
@@ -270,7 +281,6 @@ screens = [
         # x11_drag_polling_rate = 60,
     ),
 ]
-
 
 # Drag floating layouts.
 mouse = [
