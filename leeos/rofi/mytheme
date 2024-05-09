@@ -1,0 +1,46 @@
+* {
+text-color: white;
+background-color: rgba(0, 0, 0, 0.8);
+red: #ff0000;
+black: #ff0000;
+white:  #ffffff;
+
+yellow:  #ffe400;
+lightgreen1:  #92ff00;
+lightgreen2:  #00ffae;
+lightblue1:  #00a4ff;
+pink:  #ff00fb;
+purple:  #b238ff;
+}
+
+window {
+    location: south west;
+    anchor:   south west;
+    width: 20%;
+    height: 97%;
+    border: 5px;
+    border-color: @yellow;
+    border-radius: 40px;
+}
+
+inputbar {
+border: 0px 0px 5px 0px;
+border-color: @yellow;
+padding: 10px;
+}
+                              
+prompt {
+ color: @red;
+}
+                                                               
+listview {
+padding: 10px;
+}
+
+element-text {
+    background-color: inherit;
+}
+
+element selected.normal {
+     background-color: red;
+}
