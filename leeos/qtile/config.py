@@ -13,6 +13,7 @@ def battery_widget():
             format="{char} {percent:2.0%}",
             full_char="",
             update_interval=1,
+            foreground = '#0048ba',
         )
     else:
         return None
@@ -24,7 +25,7 @@ import subprocess
 
 class VolumeWidget(TextBox):
     def __init__(self):
-        super().__init__(text="Vol")
+        super().__init__(text="Vol", foreground="#ace1af") #Celadon
         self.update_volume()
 
         # Add callbacks to the widget
@@ -55,8 +56,8 @@ script_widget = widget.GenPollText(
     func=get_nmcli_output,
     update_interval=1,
     fmt='{} ',  # You can customize the formatting here
-    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("/etc/leeos/scripts/rofi-wifi-menu.sh")}
-    #foreground='#FF0000',  # You can customize the color here
+    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("/etc/leeos/scripts/rofi-wifi-menu.sh")},
+    foreground='#d2691e',  # You can customize the color here
 )
 # End of My Config: (Network Widget) A Script runs and displays a icon depending on if connected to wifi, ethernet or disconnected
 
@@ -235,7 +236,7 @@ screens = [
             
             widget.CPU(
                 format = '   {load_percent}%', 
-                foreground = '#3fff00', #Harlequin
+                foreground = '#ff5800', #Orange (Crayola)
                 ),
             
             widget.Spacer(
@@ -269,18 +270,17 @@ screens = [
                 length=10, 
                 ),
             
-            VolumeWidget(
-                # not taking affect config wont reload
-                #foreground = '#fc74fd',
-                ),
+            VolumeWidget(),
             
             widget.Spacer(
                 length=10, 
                 ),
             
             widget.CheckUpdates(
-                distro = "Arch_checkupdates", 
-                display_format = '󰇚 {updates}'
+                distro = "Arch_checkupdates",
+                colour_have_updates = '#f38fa9',
+                colour_no_updates = '#f38fa9', 
+                display_format = '󰇚 {updates}',
                 ),
             
             widget.Spacer(
