@@ -3,7 +3,7 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
-# Start of my config: Detect to see if a battery is available (BAT0) if it is then shows on qtile bar, if not hide the battery widget
+
 def battery_widget():
     if os.path.exists("/sys/class/power_supply/BAT0"):
         return widget.Battery(
@@ -16,7 +16,7 @@ def battery_widget():
         )
     else:
         return None
-# End of my config: Detect to see if a battery is available (BAT0) if it is then shows on qtile bar, if not hide the battery widget
+
 
 # Start of my config: To increase and decrease volume
 from libqtile.widget import TextBox
@@ -32,38 +32,39 @@ class VolumeWidget(TextBox):
 
     def update_volume(self):
         # Run your volume.sh script to get the volume level or mute state
-        result = subprocess.run(["/home/chris/.config/scripts/volume.sh"], capture_output=True, text=True)
+        result = subprocess.run(["/etc/leeos/scripts/volume.sh"], capture_output=True, text=True)
         self.text = result.stdout.strip()
 
     def on_left_click(self):
-        subprocess.run(["/home/chris/.config/scripts/volume.sh", "up"])
+        subprocess.run(["/etc/leeos/scripts/volume.sh", "up"])
         self.update_volume()
 
     def on_right_click(self):
-        subprocess.run(["/home/chris/.config/scripts/volume.sh", "down"])
+        subprocess.run(["/etc/leeos/scripts/volume.sh", "down"])
         self.update_volume()
-
 # Create an instance of VolumeWidget
 volume_widget = VolumeWidget()
-
 # End of my config: To increase and decrease volume
+
 
 # Start of My Config: (Network Widget) A Script runs and displays a icon depending on if connected to wifi, ethernet or disconnected
 def get_nmcli_output():
-    return subprocess.check_output(["/home/chris/.config/scripts/nmcli.sh"]).decode("utf-8").strip()
+    return subprocess.check_output(["/etc/leeos/scripts/nmcli.sh"]).decode("utf-8").strip()
 
 script_widget = widget.GenPollText(
     func=get_nmcli_output,
     update_interval=1,
     fmt='{} ',  # You can customize the formatting here
-    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("/home/chris/.config/scripts/rofi-wifi-menu.sh")}
+    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("/etc/leeos/scripts/rofi-wifi-menu.sh")}
     #foreground='#FF0000',  # You can customize the color here
 )
-# End of My Config: A Script runs and displays a icon depending on if connected to wifi, ethernet or disconnected
+# End of My Config: (Network Widget) A Script runs and displays a icon depending on if connected to wifi, ethernet or disconnected
+
 
 # Start of My Config: Adding a mod key for my personal scripts and lauching apps
 alt = "mod1"
 # End of My Config: Adding a mod key for my personal scripts and lauching apps
+
 
 # Start of My Config: Script to launch things at login
 import os
@@ -71,12 +72,14 @@ import subprocess
 from libqtile import hook
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~/.config/qtile/autostart.sh')
+    home = os.path.expanduser('/etc/leeos/scripts/autostart.sh')
     subprocess.Popen([home])
 # End of My Config: Script to launch things at login
 
+
 mod = "mod4"
 terminal = guess_terminal()
+
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -126,11 +129,11 @@ keys = [
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 
     # Start of My Config: setting my own keys
-     Key([alt], "q", lazy.spawn(os.path.expanduser("/home/chris/.config/scripts/power.sh")), desc="powermenu"), 
+     ################Key([alt], "d", lazy.spawn(os.path.expanduser("/home/chris/.config/scripts/test.sh")), desc="rofi"),
+     Key([alt], "q", lazy.spawn(os.path.expanduser("/etc/leeos/scripts/power.sh")), desc="powermenu"),
+     Key([alt], "d", lazy.spawn(os.path.expanduser("/etc/leeos/scripts/rofi.sh")), desc="menu"),  
      Key([alt], "f", lazy.spawn("firefox")),
-     Key([alt], "d", lazy.spawn("rofi -show drun")),
     # End of My Config: setting my own keys
-
 ]
 
 # Add key bindings to switch VTs in Wayland.
@@ -145,6 +148,7 @@ for vt in range(1, 8):
             desc=f"Switch to VT{vt}",
         )
     )
+
 
 groups = [Group(i) for i in "123456789"]
 
@@ -193,7 +197,8 @@ layouts = [
 
 widget_defaults = dict(
     font="sans",
-    fontsize=12,
+    #fontsize=12,
+    fontsize=15,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
@@ -203,77 +208,103 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+            
             widget.TextBox(
-                text = "",
-                mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("rofi -show drun")}
+                text = " ",
+                foreground = '#00ffff', # Aqua
+                mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("/etc/leeos/scripts/rofi.sh")}
                 ),
+
              widget.Spacer(
                  length=10, 
                  ),
+
             widget.Clock(
+                foreground = '#4666ff', #Neon Blue
                 format="  %a %d-%m-%Y",
                     ),
+            
             widget.Clock(
+                foreground = '#ffe135', #Banana Yellow
                 format="  %I:%M %p",
                     ),
-             widget.Spacer(
+            
+            widget.Spacer(
                  length=10, 
                  ),
-            widget.CPU(format = '   {load_percent}%'),
-             widget.Spacer(
+            
+            widget.CPU(
+                format = '   {load_percent}%', 
+                foreground = '#3fff00', #Harlequin
+                ),
+            
+            widget.Spacer(
                  length=10, 
                  ),
-            widget.Memory(format = '   {MemPercent}%'),
-             widget.Spacer(
+            
+            widget.Memory(
+                foreground = '#ccff00', #Electric Lime
+                format = '   {MemPercent}%',
+                ),
+            
+            widget.Spacer(
                  length=408, 
                  ),
-            widget.GroupBox(),
-            widget.WindowName(),
-            widget.CurrentLayout(),
+            
+            widget.GroupBox(
+                # dont seem to apply but config reloads
+                foreground = '#39ff14'
+                ),
+            
+            widget.WindowName(
+                foreground = '#39ff14', #Neon Green
+                ),
+            
+            widget.CurrentLayout(
+                foreground = '#fc74fd', #Pink Flamingo
+
+                ),
+            
             widget.Spacer(
                 length=10, 
                 ),
-            VolumeWidget(),
+            
+            VolumeWidget(
+                # not taking affect config wont reload
+                #foreground = '#fc74fd',
+                ),
+            
             widget.Spacer(
                 length=10, 
                 ),
+            
             widget.CheckUpdates(distro = "Arch_checkupdates", display_format = '󰇚 {updates}'),
+            
             widget.Spacer(
                 length=10, 
                 ),
-            widget.Battery(battery = "BAT0", charge_char = "󰂄 ", discharge_char = "  ", format = "{char} {percent:2.0%}", full_char ="", update_interval = "1"),
+            
+            battery_widget(),
+            
             widget.Spacer(
                  length=10, 
                  ),
+            
             script_widget, #(Network Widget) A Script runs and displays a icon depending on if connected to wifi, ethernet or disconnected
+            
             widget.Spacer(
-                 length=10, 
+                 length=10,
                  ),
+            
             widget.TextBox(
                 text = "⏻ ",
-                mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("/home/chris/.config/scripts/power.sh")}
+                foreground = '#00ff7f', #SpringGreen1
+                mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("/etc/leeos/scripts/power.sh")},
                 ),
-            # End of My Config: Added and moved widgets
-                       
-                # widget.Prompt(),
-                
-                # widget.Chord(
-                #     chords_colors={
-                #         "launch": ("#ff0000", "#ffffff"),
-                #     },
-                #     name_transform=lambda name: name.upper(),
-                # ),
-                # widget.TextBox("default config", name="default"),
-                # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                # # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                # # widget.StatusNotifier(),
-                # widget.Systray(),
-                
-                # widget.QuickExit(),
+            # End of My Config: Added and moved widgets           
             ],
             24,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+
         ),
         # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
         # By default we handle these events delayed to already improve performance, however your system might still be struggling
@@ -281,6 +312,7 @@ screens = [
         # x11_drag_polling_rate = 60,
     ),
 ]
+
 
 # Drag floating layouts.
 mouse = [
