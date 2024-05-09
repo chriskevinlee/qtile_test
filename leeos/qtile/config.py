@@ -278,7 +278,10 @@ screens = [
                 length=10, 
                 ),
             
-            widget.CheckUpdates(distro = "Arch_checkupdates", display_format = '󰇚 {updates}'),
+            widget.CheckUpdates(
+                distro = "Arch_checkupdates", 
+                display_format = '󰇚 {updates}'
+                ),
             
             widget.Spacer(
                 length=10, 
