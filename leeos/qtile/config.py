@@ -13,7 +13,7 @@ def battery_widget():
             format="{char} {percent:2.0%}",
             full_char="",
             update_interval=1,
-            foreground = '#0048ba',
+            foreground = '#0048ba', #Absolute Zero
         )
     else:
         return None
@@ -57,7 +57,7 @@ script_widget = widget.GenPollText(
     update_interval=1,
     fmt='{} ',  # You can customize the formatting here
     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("/etc/leeos/scripts/rofi-wifi-menu.sh")},
-    foreground='#d2691e',  # You can customize the color here
+    foreground='#d2691e',  # Chocolate
 )
 # End of My Config: (Network Widget) A Script runs and displays a icon depending on if connected to wifi, ethernet or disconnected
 
@@ -249,17 +249,16 @@ screens = [
                 ),
             
             widget.Spacer(
-                 length=408, 
+                 length=250, 
                  ),
             
             widget.GroupBox(
-                # dont seem to apply but config reloads
-                foreground = '#39ff14'
+                active = '#ffd700', #Gold1`
                 ),
-            
+
             widget.WindowName(
                 foreground = '#39ff14', #Neon Green
-                ),
+                max_chars=70                ),
             
             widget.CurrentLayout(
                 foreground = '#fc74fd', #Pink Flamingo
