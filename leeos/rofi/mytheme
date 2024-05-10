@@ -1,16 +1,20 @@
 * {
+background-color: black;
 text-color: white;
-background-color: rgba(0, 0, 0, 0.8);
-red: #ff0000;
-black: #ff0000;
-white:  #ffffff;
+VenetianRed:#c80815;
+Aqua: #00ffff; 
+NeonBlue: #4666ff; 
+BananaYellow: #ffe135; 
+NeonGreen: #39ff14; 
+ElectricLime: #ccff00; 
+PinkFlamingo: #fc74fd; 
+SpringGreen1: #00ff7f; 
+AbsoluteZero: #0048ba; 
+Celadon: #ace1af; 
+Chocolate: #d2691e;
+VanillaIce: #f38fa9; 
+Gold1:   #ffd700;
 
-yellow:  #ffe400;
-lightgreen1:  #92ff00;
-lightgreen2:  #00ffae;
-lightblue1:  #00a4ff;
-pink:  #ff00fb;
-purple:  #b238ff;
 }
 
 window {
@@ -19,18 +23,18 @@ window {
     width: 20%;
     height: 97%;
     border: 5px;
-    border-color: @yellow;
+    border-color: @Gold1;
     border-radius: 40px;
 }
 
 inputbar {
 border: 0px 0px 5px 0px;
-border-color: @yellow;
+border-color: @Gold1;
 padding: 10px;
 }
                               
 prompt {
- color: @red;
+ color: @VenetianRed;
 }
                                                                
 listview {
@@ -39,8 +43,9 @@ padding: 10px;
 
 element-text {
     background-color: inherit;
+
 }
 
 element selected.normal {
-     background-color: red;
+     background-color: @VenetianRed;
 }
