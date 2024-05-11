@@ -49,3 +49,8 @@ element-text {
 element selected.normal {
      background-color: @VenetianRed;
 }
+
+entry {
+    placeholder: "Search";
+    color: @Celadon;
+}
