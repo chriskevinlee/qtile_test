@@ -223,6 +223,9 @@ screens = [
                 foreground = '#4666ff', #Neon Blue
                 format="  %a %d-%m-%Y",
                     ),
+            widget.Spacer(
+                 length=10, 
+                 ),
             
             widget.Clock(
                 foreground = '#ffe135', #Banana Yellow
