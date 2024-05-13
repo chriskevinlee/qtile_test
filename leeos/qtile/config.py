@@ -198,7 +198,6 @@ layouts = [
 
 widget_defaults = dict(
     font="sans",
-    #fontsize=12,
     fontsize=15,
     padding=3,
 )
@@ -227,7 +226,7 @@ screens = [
             
             widget.Clock(
                 foreground = '#ffe135', #Banana Yellow
-                format="  %I:%M %p",
+                format="  %I:%M:%S %p",
                     ),
             
             widget.Spacer(
