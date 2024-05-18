@@ -12,6 +12,7 @@ sudo pacman -S alacritty
 sudo pacman -S python-psutil
 sudo pacman -S pacman-contrib
 sudo pacman -S xdg-user-dirs
+sudo pacman -S conky
 
 
 # get audio widget working
