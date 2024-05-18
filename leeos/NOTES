@@ -11,6 +11,7 @@ sudo pacman -S sddm
 sudo pacman -S alacritty
 sudo pacman -S python-psutil
 sudo pacman -S pacman-contrib
+sudo pacman -S xdg-user-dirs
 
 
 # get audio widget working
