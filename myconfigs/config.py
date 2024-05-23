@@ -7,6 +7,17 @@ import os
 import subprocess
 from libqtile import hook
 
+
+def get_current_user():
+    return subprocess.check_output(["/bin/bash", "-c", "echo $USER"]).decode().strip()
+
+current_user_widget = widget.TextBox(
+    text=get_current_user(),
+    foreground='#ffe135',  # Choose your desired color
+)
+
+
+
 def get_script_path(script_name):
     home_dir = os.path.expanduser("~")
     return os.path.join(home_dir, ".config", "scripts", script_name)
@@ -244,6 +255,7 @@ screens = [
                 widget.Spacer(length=10),
                 script_widget,  # (Network Widget) A Script runs and displays an icon depending on if connected to wifi, ethernet, or disconnected
                 widget.Spacer(length=10),
+                current_user_widget,
                 widget.TextBox(
                     text="⏻ ",
                     foreground='#00ff7f',  # SpringGreen1
