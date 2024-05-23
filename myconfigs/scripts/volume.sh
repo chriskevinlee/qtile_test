@@ -11,5 +11,4 @@ elif [ "$1" = "down" ]; then
 fi
 
 current_volume=$(pactl list sinks | awk '/^\s*Volume:/ {print $5}')
-echo "Current volume level: $current_volume"
-
+echo " 󰕾 $current_volume"
